@@ -8,6 +8,7 @@ import struct
 from rpmfile import cpiofile
 from functools import wraps
 from rpmfile.io_extra import _SubFile
+from backports import lzma
 
 pad = lambda fileobj: (4 - (fileobj.tell() % 4)) % 4
 
@@ -157,7 +158,13 @@ class RPMFile(object):
         'Return the uncompressed raw CPIO data of the RPM archive'
         if self._gzip_file is None:
             fileobj = _SubFile(self._fileobj, self.data_offset)
-            self._gzip_file = gzip.GzipFile(fileobj=fileobj)
+            archive_compression = self.headers['archive_compression']
+            if archive_compression == 'xz':
+                self._gzip_file = lzma.LZMAFile(fileobj)
+            elif archive_compression == 'gzip':
+                self._gzip_file = gzip.GzipFile(fileobj=fileobj)
+            else:
+                raise NotImplementedError('Unknown compression format: %s'%archive_compression)
         return self._gzip_file
 
 def open(name=None, mode='rb', fileobj=None):

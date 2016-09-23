@@ -20,4 +20,5 @@ setup(
     license='MIT',
     long_description=long_description,
     packages=find_packages(),
+    install_requires = ['backports.lzma'],
 )
