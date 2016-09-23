@@ -58,7 +58,7 @@ tags = {'signature': 267
     , 'sourcerpm': 1044
     , 'fileverifyflags': 1045
     , 'archivesize': 1046
-    , 'provides': 1047
+    , 'providename': 1047
     , 'requireflags': 1048
     , 'requirename': 1049
     , 'requireversion': 1050
@@ -82,6 +82,10 @@ tags = {'signature': 267
     , 'triggerflags': 1068
     , 'triggerindex': 1069
     , 'verifyscript': 1079
+    , 'prefixes': 1098
+
+    , 'provideversion': 1112
+    , 'provideflags': 1113
 
     , 'basenames': 1117
 
