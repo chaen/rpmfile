@@ -59,7 +59,7 @@ class RPMInfo(object):
         fileobj.seek(file_size, 1)
         fileobj.seek(pad(fileobj), 1)
         nlink = int(d[4], 16)
-        isdir = nlink == 2 and file_size == 0
+        isdir = nlink >= 2 and file_size == 0
         return cls(name, file_start, file_size, initial_offset, isdir)
 
 class RPMFile(object):
